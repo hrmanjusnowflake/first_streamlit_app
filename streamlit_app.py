@@ -1,3 +1,3 @@
 import streamlit
 
-stream.title('my light is here') 
+streamlit.title('my light is here') 
