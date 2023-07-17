@@ -56,10 +56,10 @@ except URLError as e:
 # my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:-")
 #snowflake-releted functions
-def get_fruits_load_list():
-    with my_cnx.cursor() as my_cur:
-         my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
-         return my_cur.fetchall()
+#def get_fruits_load_list():
+ #   with my_cnx.cursor() as my_cur:
+  #       my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
+   #      return my_cur.fetchall()
         
 # Add button to load fruits 
 if streamlit.Button('Get the Fruits load List'):
