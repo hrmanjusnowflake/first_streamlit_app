@@ -14,10 +14,7 @@ my_fruit_list = my_fruit_list.set_index('Fruit')
 # Let's put a pick list here so they can pick the fruit they want to include 
 fruits_selected = streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index),['Apple','Banana'])
 fruits_to_show = my_fruit_list.loc[fruits_selected]
-
-
 # streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index))
-
 # Display the table on the page.
 
 # Create repeateable code block(called function)
@@ -50,16 +47,34 @@ except URLError as e:
 
 # write your own comment - what does this do?
 
-streamlit.stop()
+# streamlit.stop()
 
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
-my_data_rows = my_cur.fetchall()
+# my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+# my_cur = my_cnx.cursor()
+# my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
+# my_data_rows = my_cur.fetchall()
 streamlit.header("The fruit load list contains:-")
-streamlit.dataframe(my_data_rows)
+#snowflake-releted functions
+def get_fruits_load_list():
+    with my_cnx.cursor() as my_cur:
+         my_cur.execute("SELECT * from FRUIT_LOAD_LIST")
+         return my_cur.fetchall()
+        
+# Add button to load fruits 
+if streamlit.Button('Get the Fruits load List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_rows = get_fruits_load_list()
+    streamlit.dataframe(my_data_rows)
 
+def insert_row_snowflake(new_fruit):
+    with my_cnx.cursor() as my_cur:
+         my_cur.execute("insert into FRUIT_LOAD_LIST values('from streamlit')")
+         return "Thanks for adding " + new_fruit
 
-
-my_cur.execute("insert into FRUIT_LOAD_LIST values('from streamlit')")
+Add_my_fruit = streamlit.text_input('What fruit would you like to add?')
+if streamlit.Button('Add a fruit to a list')
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    back_from_funtion = insert_row_snowflake(Add_my_fruit)
+    streamlit.text(back_from_funtion)
+# my_cur.execute("insert into FRUIT_LOAD_LIST values('from streamlit')")
